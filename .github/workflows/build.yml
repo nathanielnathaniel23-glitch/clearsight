@@ -16,11 +16,13 @@ jobs:
         with:
           gradle-version: '8.7'
       - name: Unzip project
-        run: '[ -f ClearSight.zip ] && unzip -q ClearSight.zip || true'
+        run: unzip -q ClearSight-v1.1.zip
       - name: Build debug APK
         working-directory: ClearSight
         run: gradle assembleDebug --no-daemon
+      - name: Rename APK
+        run: cp ClearSight/app/build/outputs/apk/debug/app-debug.apk ClearSight-v1.1.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: ClearSight-debug-apk
-          path: ClearSight/app/build/outputs/apk/debug/app-debug.apk
+          name: ClearSight-v1.1-apk
+          path: ClearSight-v1.1.apk
